@@ -1,0 +1,34 @@
+{
+    "id": "typescript",
+    "name": "TS",
+    "schema": {
+        "typescript.gen": {
+            "text": "TypeScript Code Generation",
+            "type": "section"
+        },
+        "typescript.gen.tsDoc": {
+            "text": "TypeScript Doc",
+            "description": "Generate TypeScript Doc comments.",
+            "type": "check",
+            "default": true
+        },
+        "typescript.gen.copyright": {
+            "text": "Copyright Text",
+            "description": "Copyright Text to use on all files",
+            "type": "string",
+            "default": "\n/*\n*(C) Copyright MyCompany, Inc. \n*All rights reserved\n*/\n"
+        },
+        "typescript.gen.indentSpaces": {
+            "text": "Indent Spaces",
+            "description": "Number of spaces for indentation.",
+            "type": "number",
+            "default": 4
+        },
+        "typescript.gen.comments": {
+            "text": "Generate Comments",
+            "description": "Generate comments in JSDoc style.",
+            "type": "check",
+            "default": false
+        }
+    }
+}

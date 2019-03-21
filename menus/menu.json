@@ -1,0 +1,16 @@
+{
+    "menu": [
+        {
+            "id": "tools",
+            "submenu": [
+                {
+                    "label": "Typescript",
+                    "id": "tools.typescript",
+                    "submenu": [
+                      { "label": "Generate Code...", "id": "tools.typescript.generate", "command": "typescript:generate" }
+                    ]
+                  }
+            ]
+        }
+    ]
+}

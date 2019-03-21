@@ -1,0 +1,21 @@
+{
+  "name": "robertalmalak.staruml-typescript",
+  "title": "TypeScript",
+  "description": "TypeScript code generation",
+  "homepage": "https://github.com/qwin/staruml-typescript",
+  "issues": "https://github.com/qwin/staruml-typescript/issues",
+  "version": "0.2.0",
+  "keywords": ["TypeScript", "ts", "UML", "staruml"],
+  "author": {
+    "name": "Robert Al Malak",
+    "email": "robertalmalak7@gmail.com",
+    "url": "https://github.com/qwin"
+  },
+  "license": "GPLv3",
+  "engines": {
+    "staruml": ">=3.0.0"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.11"
+  }
+}
