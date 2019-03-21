@@ -1,9 +1,6 @@
 const typeScriptCodeGenerator = require("./typeScriptCodeGenerator")
 
 function _handleGen(base, path, options) {
-    console.log('this is a test');
-
-
     // window.alert('Hello World!');
     // If options is not passed, get from preference
     options = options || getGenOptions()

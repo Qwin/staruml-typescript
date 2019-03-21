@@ -5,8 +5,6 @@
 const CodeWriter = require("./CodeGenUtils")
 var path = require('path');
 var fs = require('fs');
-var _ = require('lodash');
-
 
 class TypeScriptCodeGenerator {
     /**
@@ -147,7 +145,7 @@ class TypeScriptCodeGenerator {
     writeNamespace(writeFunction, codeWriter, elem, options) {
         var path = null;
         if (elem._parent) {
-            path = _.map(elem._parent.getPath(this.baseModel), function (e) {
+            path = elem._parent.getPath(this.baseModel).map(function (e) {
                 return e.name;
             }).join(".");
         }
@@ -228,9 +226,7 @@ class TypeScriptCodeGenerator {
         // Extends
         var _extends = this.getSuperClasses(elem);
         if (_extends.length > 0) {
-            terms.push("extends " + _.map(_extends, function (e) {
-                return e.name;
-            }).join(", "));
+            terms.push("extends " + _extends.map(function (e) { return e.name }).join(', '))
         }
         codeWriter.writeLine(terms.join(" ") + " {");
         codeWriter.writeLine();
@@ -306,7 +302,7 @@ class TypeScriptCodeGenerator {
 
         // Modifiers
         var _modifiers = this.getModifiers(elem);
-        if (_.some(elem.operations, function (op) {
+        if (elem.operations.some(function (op) {
             return op.isAbstract === true;
         })) {
             _modifiers.push("abstract");
@@ -333,11 +329,11 @@ class TypeScriptCodeGenerator {
         var _implements = this.getSuperInterfaces(elem);
         if (_implements.length > 0) {
             if (_extends.length > 0) {
-                terms.push(", " + _.map(_implements, function (e) {
+                terms.push(", " + _implements.map(function (e) {
                     return e.name;
                 }).join(", "));
             } else {
-                terms.push("implements " + _.map(_implements, function (e) {
+                terms.push("implements " + _implements.map(function (e) {
                     return e.name;
                 }).join(", "));
             }
@@ -428,7 +424,7 @@ class TypeScriptCodeGenerator {
 
         // Modifiers
         // var _modifiers = this.getModifiers(elem);
-        // if (_.some(elem.operations, function(op) {
+        // if (elem.operations.some(function(op) {
         //         return op.isAbstract === true;
         //     })) {
         //     _modifiers.push("abstract");
@@ -451,11 +447,11 @@ class TypeScriptCodeGenerator {
         var _implements = this.getSuperInterfaces(elem);
         if (_implements.length > 0) {
             if (_extends.length > 0) {
-                terms.push(", " + _.map(_implements, function (e) {
+                terms.push(", " + _implements.map(function (e) {
                     return e.name;
                 }).join(", "));
             } else {
-                terms.push("implements " + _.map(_implements, function (e) {
+                terms.push("implements " + _implements.map(function (e) {
                     return e.name;
                 }).join(", "));
             }
@@ -541,7 +537,7 @@ class TypeScriptCodeGenerator {
 
             // doc
             var doc = elem.documentation.trim();
-            _.each(params, function (param) {
+            params.forEach(function (param) {
                 doc += "\n@param " + param.name + " " + param.documentation;
             });
             if (returnParam) {
@@ -581,7 +577,7 @@ class TypeScriptCodeGenerator {
             }
 
             // body
-            if (skipBody === true || _.contains(_modifiers, "abstract")) {
+            if (skipBody === true || _modifiers.includes("abstract")) {
                 codeWriter.writeLine(terms.join(" ") + ";");
             } else {
                 codeWriter.writeLine(terms.join(" ") + " {");
@@ -640,7 +636,7 @@ class TypeScriptCodeGenerator {
         } else {
             if (elem.type instanceof type.UMLModelElement && elem.type.name.length > 0) {
                 _type = elem.type.name;
-            } else if (_.isString(elem.type) && elem.type.length > 0) {
+            } else if ((typeof elem.type === 'string') && elem.type.length > 0) {
                 _type = elem.type;
             }
         }
@@ -648,7 +644,7 @@ class TypeScriptCodeGenerator {
 
         // multiplicity
         if (elem.multiplicity) {
-            if (_.contains(["0..*", "1..*", "*"], elem.multiplicity.trim())) {
+            if (["0..*", "1..*", "*"].includes(elem.multiplicity.trim())) {
                 if (elem.isOrdered === true) {
                     _type = "List<" + _type + ">";
                 } else {
@@ -731,7 +727,7 @@ class TypeScriptCodeGenerator {
      */
     writeDoc(codeWriter, text, options) {
         var i, len, lines;
-        if (options.tsDoc && _.isString(text)) {
+        if (options.tsDoc && (typeof text === 'string')) {
             console.log("write Doc");
             lines = text.trim().split("\n");
             codeWriter.writeLine("/**");
@@ -800,7 +796,7 @@ class TypeScriptCodeGenerator {
         var generalizations = app.repository.getRelationshipsOf(elem, function (rel) {
             return (rel instanceof type.UMLGeneralization && rel.source === elem);
         });
-        return _.map(generalizations, function (gen) {
+        return generalizations.map(function (gen) {
             return gen.target;
         });
     };
@@ -814,7 +810,7 @@ class TypeScriptCodeGenerator {
         var realizations = app.repository.getRelationshipsOf(elem, function (rel) {
             return (rel instanceof type.UMLInterfaceRealization && rel.source === elem);
         });
-        return _.map(realizations, function (gen) {
+        return realizations.map(function (gen) {
             return gen.target;
         });
     };
